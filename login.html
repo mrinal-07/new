@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Agroxphere | Login</title>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #dcedc8, #a5d6a7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .login-box {
+      background: white;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 100, 0, 0.2);
+      width: 350px;
+      text-align: center;
+      animation: slideIn 1s ease-out;
+    }
+
+    h2 {
+      color: #2e7d32;
+      margin-bottom: 30px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin: 12px 0;
+      border: 1px solid #c8e6c9;
+      border-radius: 8px;
+      box-sizing: border-box;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+
+    input[type="text"]:focus, input[type="password"]:focus {
+      border-color: #66bb6a;
+      outline: none;
+      box-shadow: 0 0 8px rgba(102, 187, 106, 0.4);
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      background: linear-gradient(to right, #4CAF50, #66BB6A);
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.4s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(to right, #388e3c, #81c784);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(76, 175, 80, 0.4);
+    }
+
+    .register {
+      margin-top: 20px;
+      font-size: 14px;
+    }
+
+    .register a {
+      color: #2e7d32;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .register a:hover {
+      color: #1b5e20;
+      text-decoration: underline;
+    }
+
+    .google-signin {
+      margin-top: 25px;
+    }
+
+    /* Animations */
+    @keyframes slideIn {
+      from {
+        transform: translateY(-30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <h2>Login to Agroxphere</h2>
+    <form id="login-form">
+      <input type="text" id="username" placeholder="Username" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
+
+    <div class="google-signin">
+      <div id="g_id_onload"
+           data-client_id="YOUR_GOOGLE_CLIENT_ID"
+           data-callback="handleCredentialResponse"
+           data-auto_prompt="false">
+      </div>
+      <div class="g_id_signin"
+           data-type="standard"
+           data-shape="pill"
+           data-theme="filled_black"
+           data-text="signin_with"
+           data-size="large"
+           data-logo_alignment="left">
+      </div>
+    </div>
+
+    <div class="register">
+      New user? <a href="register.html">Register here</a>
+    </div>
+  </div>
+
+<!-- Firebase JS SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js"></script>
+
+<script>
+  // Firebase Config (Replace with your own project settings)
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_AUTH_DOMAIN",
+    projectId: "YOUR_PROJECT_ID",
+    appId: "YOUR_APP_ID"
+  };
+
+  // Initialize Firebase
+  const app = firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  // Google Sign-In
+  function signInWithGoogle() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    auth.signInWithPopup(provider)
+      .then((result) => {
+        alert("✅ Signed in as " + result.user.displayName);
+      })
+      .catch((error) => {
+        alert("❌ Google Sign-In Error: " + error.message);
+      });
+  }
+
+  // Handle traditional login
+  function loginUser() {
+    const username = document.getElementById("login-username").value;
+    const password = document.getElementById("login-password").value;
+
+    // Simulate user data from storage (replace with real auth if needed)
+    const userData = JSON.parse(localStorage.getItem("registeredUser"));
+
+    // Password validation: at least one letter, one number, one special char, min 6 chars
+    const passwordPattern = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[\W_]).{6,}$/;
+    if (!passwordPattern.test(password)) {
+      alert("❌ Password must be alphanumeric and include at least one special character.");
+      return;
+    }
+
+    // Check if user exists
+    if (!userData || username !== userData.username || password !== userData.password) {
+      alert("❌ User not found or credentials incorrect. Please register first.");
+      return;
+    }
+
+    alert("✅ Login successful. Welcome back, " + username + "!");
+  }
+
+  // Password Match Check (Assumes form id="register-form")
+  document.getElementById("register-form").addEventListener("submit", function(e) {
+    const password = document.getElementById("register-password").value;
+    const confirmPassword = document.getElementById("register-confirm-password").value;
+
+    if (password !== confirmPassword) {
+      e.preventDefault();
+      alert("❌ Password and Confirm Password do not match.");
+    }
+  });
+</script>
+
+
+</body>
+</html>
