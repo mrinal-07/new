@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register | Agroxphere</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      animation: fadeInBody 1s ease-in-out;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Subtle animated background glow */
+    body::before {
+      content: "";
+      position: absolute;
+      top: -30%;
+      left: -30%;
+      width: 160%;
+      height: 160%;
+      background: radial-gradient(circle at center, #81c78444 0%, transparent 70%);
+      animation: pulseBg 8s ease-in-out infinite alternate;
+      z-index: 0;
+    }
+
+    .register-container {
+      background-color: #fff;
+      padding: 40px 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 128, 0, 0.15);
+      max-width: 450px;
+      width: 100%;
+      text-align: center;
+      animation: slideIn 1.2s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    .register-container h2 {
+      color: #2e7d32;
+      margin-bottom: 25px;
+      font-weight: bold;
+      font-size: 26px;
+      animation: pulse 2s infinite alternate;
+    }
+
+    .register-container input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #f1f8f2;
+      transition: all 0.3s ease;
+      font-size: 16px;
+      animation: inputFadeIn 1s ease forwards;
+      opacity: 0;
+    }
+
+    /* Staggered input fadeIn */
+    .register-container input:nth-child(2) { animation-delay: 0.1s; }
+    .register-container input:nth-child(3) { animation-delay: 0.2s; }
+    .register-container input:nth-child(4) { animation-delay: 0.3s; }
+    .register-container input:nth-child(5) { animation-delay: 0.4s; }
+    .register-container input:nth-child(6) { animation-delay: 0.5s; }
+
+    .register-container input:focus {
+      border-color: #4caf50;
+      outline: none;
+      box-shadow: 0 0 12px rgba(76, 175, 80, 0.6);
+      transform: scale(1.05);
+    }
+
+    .register-container button {
+      background: linear-gradient(135deg, #4caf50, #66bb6a);
+      border: none;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.4s ease;
+      box-shadow: 0 6px 15px rgba(76, 175, 80, 0.4);
+      position: relative;
+      overflow: hidden;
+      animation: buttonPop 1s ease forwards;
+      opacity: 0;
+      animation-delay: 0.7s;
+    }
+
+    .register-container button::before {
+      content: "";
+      position: absolute;
+      width: 120%;
+      height: 100%;
+      top: 0;
+      left: -120%;
+      background: rgba(255, 255, 255, 0.2);
+      transform: skewX(-20deg);
+      transition: all 0.5s ease;
+    }
+
+    .register-container button:hover::before {
+      left: 120%;
+    }
+
+    .register-container button:hover {
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 10px 20px rgba(76, 175, 80, 0.7);
+    }
+
+    .register-container .footer-link {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #388e3c;
+      animation: fadeInFooter 1.5s ease forwards;
+      opacity: 0;
+      animation-delay: 1.1s;
+    }
+
+    .register-container .footer-link a {
+      color: #2e7d32;
+      text-decoration: underline;
+    }
+
+    /* Animations */
+    @keyframes slideIn {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes pulse {
+      from {
+        text-shadow: 0 0 8px rgba(76, 175, 80, 0.4);
+      }
+      to {
+        text-shadow: 0 0 20px rgba(76, 175, 80, 0.6);
+      }
+    }
+
+    @keyframes fadeInBody {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes pulseBg {
+      0% { transform: scale(1) translate(0,0); opacity: 0.7; }
+      50% { transform: scale(1.05) translate(10px,10px); opacity: 0.9; }
+      100% { transform: scale(1) translate(0,0); opacity: 0.7; }
+    }
+
+    @keyframes inputFadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes buttonPop {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes fadeInFooter {
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="register-container">
+    <h2>Create Your Account</h2>
+    <form>
+      <input type="text" placeholder="Full Name" required />
+      <input type="email" placeholder="Email Address" required />
+      <input type="text" placeholder="Username" required />
+      <input type="password" placeholder="Password" required />
+      <input type="password" placeholder="Confirm Password" required />
+      <button type="submit">Register</button>
+    </form>
+    <div class="footer-link">
+      Already have an account? <a href="login.html">Login here</a>
+    </div>
+  </div>
+</body>
+</html>

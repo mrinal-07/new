@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agriculture Export Categories</title>
+  <style>
+    /* General reset and styling */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c5f2d;
+      margin-bottom: 40px;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      padding: 0 20px;
+    }
+
+    .category-box {
+      background-color: #ffffff;
+      border: 2px solid #cde0c9;
+      border-radius: 15px;
+      width: 260px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .category-box:hover {
+      background-color: #e8f6e8;
+    }
+
+    /* Smooth shrink on hover */
+    .category-box {
+      transition: transform 0.3s ease;
+    }
+
+    /* Hover effect for each box */
+    #box1:hover, #box2:hover, #box3:hover, #box4:hover, #box5:hover {
+      transform: scale(1.05);
+      transition-delay: 0s;
+    }
+
+    /* Show varieties only on hover */
+    .category-box .varieties {
+      display: none;
+    }
+
+    .category-box:hover .varieties {
+      display: block;
+      animation: fadeIn 0.4s ease-in-out;
+    }
+
+    /* Animation for smooth fade-in of list */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Header container */
+    .btn-animated {
+      display: inline-block;
+      padding: 15px 30px;
+      background: linear-gradient(135deg, #4CAF50, #81C784);
+      color: white;
+      font-size: 1.1rem;
+      text-decoration: none;
+      border-radius: 45px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-animated::before {
+      content: '';
+      position: absolute;
+      width: 120%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.2);
+      top: 0;
+      left: -120%;
+      transform: skewX(-45deg);
+      transition: all 0.5s ease;
+    }
+
+    .btn-animated:hover::before {
+      left: 120%;
+    }
+
+    .btn-animated:hover {
+      background: linear-gradient(135deg, #66BB6A, #A5D6A7);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* --- HEADER SECTION --- */
+    .hero-header {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 55px;
+     
+      
+     
+    }
+
+    .hero-header img {
+      height: 50px;
+    }
+
+    .nav-box {
+      background: transparent;
+      padding: 5px 10px;
+      border-radius: 10px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 0;
+      padding:0;
+      
+      justify-content: flex-end;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 20px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #4CAF50, #66BB6A);
+      box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+      transition: all 0.3s ease;
+      position: relative;
+      font-size: 0.9rem;
+    }
+
+    nav ul li a:hover {
+      box-shadow: 0 8px 20px rgba(76, 175, 80, 0.5);
+      color: rgba(34, 34, 181, 0.75);
+    }
+
+    .category-image {
+      width: 100%;
+      height: 220px; 
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .category-content {
+      padding: 15px;
+    }
+
+    .category-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #2c5f2d;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .container .category-box:hover {
+      opacity: 1;
+      transform: scale(1.15);
+      z-index: 1; 
+    }
+
+    /* When container is hovered, all cards stay small */
+    .container:hover .category-box {
+      opacity: 1;
+      transform: scale(0.8);
+    }
+
+    .varieties {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease, opacity 0.5s ease;
+    }
+
+    .category-box:hover .varieties {
+      max-height: 300px;
+      opacity: 6;
+    }
+
+    /* --- RESPONSIVE DESIGN --- */
+    @media (max-width: 1024px) {
+      .hero-header {
+        padding: 15px 30px;
+      }
+      nav ul li a {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        gap: 15px;
+      }
+      .category-box {
+        width: 45%;
+      }
+      .hero-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 15px 10px;
+      }
+      nav ul {
+        justify-content: center;
+        gap: 5px;
+      }
+      nav ul li a {
+        padding: 6px 10px;
+        font-size: 0.8rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .category-box {
+        width: 100%;
+        max-width: 350px;
+      }
+      .category-image {
+        height: 180px;
+      }
+      h1 {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="hero-header">
+      <img src="Agrologo.jpeg" alt="Logo">
+      <div class="nav-box">
+        <nav>
+          <ul class="nav">
+            <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="main.html" class="nav-link">About</a></li>
+            <li class="nav-item"><a href="service.html" class="nav-link">Services</a></li>
+            <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
+            <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+            <li class="nav-item"><a href="testimonial.html" class="nav-link">Testimonial</a></li>
+            <li class="nav-item"><a href="product.html" class="nav-link active">Product</a></li>
+          </ul>
+        </nav>
+      </div>
+  </div>
+
+  <h1>Categories</h1>
+
+  <div class="container">
+    <div class="category-box" id="box1">
+      <img src="ricelogo.jpg" alt="Rice" class="category-image">
+      <div class="category-content">
+        <div class="category-title">Rice</div>
+        <ul class="varieties">
+          <li>Basmati - 1121</li>
+          <li>Basmati - 1509</li>
+          <li>Basmati - Pusa</li>
+          <li>Basmati - 1718</li>
+          <li>Sona Masoori</li>
+          <li>Ponni</li>
+          <li>IR64 / Jeera Samba</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="category-box" id="box2">
+      <img src="wheat1.png" alt="Wheat" class="category-image">
+      <div class="category-content">
+        <div class="category-title">Wheat</div>
+        <ul class="varieties">
+          <li>Lokwan</li>
+          <li>Sharbati</li>
+          <li>Durum</li>
+          <li>Hard Red</li>
+          <li>Soft White</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="category-box" id="box3">
+      <img src="maize.jpg" alt="Maize" class="category-image">
+      <div class="category-content">
+        <div class="category-title">Maize (Corn)</div>
+        <ul class="varieties">
+          <li>Yellow Dent</li>
+          <li>White Flint</li>
+          <li>Sweet Corn</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="category-box" id="box4">
+      <img src="barl.jpg" alt="Barley" class="category-image">
+      <div class="category-content">
+        <div class="category-title">Barley</div>
+        <ul class="varieties">
+          <li>Hulled</li>
+          <li>Hulless</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="category-box" id="box5">
+      <img src="millet.jpg" alt="Millets" class="category-image">
+      <div class="category-content">
+        <div class="category-title">Millets</div>
+        <ul class="varieties">
+          <li>Pearl Millet (Bajra)</li>
+          <li>Finger Millet (Ragi)</li>
+          <li>Foxtail Millet</li>
+          <li>Little Millet</li>
+          <li>Kodo Millet</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
