@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | AGROXPHERE</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .hero {
+      text-align: center;
+      position: relative;
+      background-color: #f0fff0;
+    }
+
+    .hero-title {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #2c5f2d;
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 80, 0, 0.4);
+      z-index: 1;
+    }
+
+    .hero-header {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 55px;
+      flex-wrap: wrap;
+    }
+
+    .hero-header img {
+      height: 50px;
+    }
+
+    .nav-box {
+      background: transparent;
+      padding: 10px 10px;
+      border-radius: 10px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin: 0;
+      padding: 0;
+      
+      justify-content: center;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 18px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #4CAF50, #66BB6A);
+      box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      white-space: nowrap;
+      font-size: 0.9rem;
+    }
+
+    nav ul li a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.15);
+      transition: left 0.5s ease;
+      z-index: 0;
+    }
+
+    nav ul li a:hover::before {
+      left: 100%;
+    }
+
+    nav ul li a:hover {
+      box-shadow: 0 8px 20px rgba(76, 175, 80, 0.5);
+    }
+
+    .btn-animated {
+      display: inline-block;
+      padding: 12px 30px;
+      background: linear-gradient(135deg, #4CAF50, #81C784);
+      color: white;
+      font-size: 1.1rem;
+      text-decoration: none;
+      border-radius: 50px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-animated::before {
+      content: '';
+      position: absolute;
+      width: 120%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.2);
+      top: 0;
+      left: -120%;
+      transform: skewX(-45deg);
+      transition: all 0.5s ease;
+    }
+
+    .btn-animated:hover::before {
+      left: 120%;
+    }
+
+    .btn-animated:hover {
+      background: linear-gradient(135deg, #66BB6A, #A5D6A7);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .col-md-6 img {
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .col-md-6 img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+    }
+
+    .about-section {
+      padding: 50px 20px;
+      background: #f9fdf9;
+      text-align: center;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #2c5f2d;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .about-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .about-card {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-align: center;
+      border: 2px solid #dbead6;
+    }
+
+    .about-card h3 {
+      font-size: 1.2rem;
+      color: #2c5f2d;
+      margin-bottom: 10px;
+    }
+
+    .about-card p {
+      font-size: 0.9rem;
+      color: #444;
+      line-height: 1.4;
+    }
+
+    .about-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    /* RESPONSIVE STYLES */
+    @media (max-width: 992px) {
+      .hero-title { font-size: 2.3rem; }
+      .section-title { font-size: 1.8rem; }
+      nav ul { gap: 8px; }
+      nav ul li a { padding: 6px 12px; font-size: 0.85rem; }
+    }
+
+    @media (max-width: 768px) {
+      .hero-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 10px;
+      }
+      .hero-title { font-size: 2rem; }
+      .section-title { font-size: 1.6rem; }
+      .container > .row { flex-direction: column; }
+      .col-md-6 img { width: 100%; }
+      nav ul li a { padding: 5px 10px; font-size: 0.8rem; }
+    }
+
+    @media (max-width: 576px) {
+      .hero-title { font-size: 1.7rem; }
+      .btn-animated { padding: 10px 20px; font-size: 0.9rem; }
+      .section-title { font-size: 1.4rem; }
+      .about-card p { font-size: 0.85rem; }
+    }
+  </style>
+
+</head>
+<body>
+ <div class="hero-header">
+      <img src="Agrologo.jpeg" alt="Logo">
+      <div class="nav-box">
+       <nav>
+        <ul class="nav">
+          <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="main.html" class="nav-link">About</a></li>
+          <li class="nav-item"><a href="service.html" class="nav-link">Services</a></li>
+          <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
+          <li class="nav-item"><a href="contact.html" class="nav-link active">Contact</a></li>
+           <li class="nav-item"><a href="testimonial.html" class="nav-link">Testimonial</a></li>
+           <li class="nav-item"><a href="product.html" class="nav-link">Product</a></li>
+        </ul>
+      </nav>
+      </div>
+    </div>
+
+<div class="hero d-flex align-items-center justify-content-center animated-hero"
+     style="height: 250px; background: linear-gradient(135deg, #e8f5e9, #c8e6c9); position: relative;"
+     data-aos="fade-up">
+  <h1 class="hero-title text-center text-success font-weight-bold glow-pulse">
+    About AGROXPHERE
+  </h1>
+</div>
+<br>
+<section class="container">
+    <div class="row">
+     <div class="col-md-12 d-flex align-items-center" data-aos="fade-up" style="gap: 20px;">
+  <div style="flex: 1;">
+    <h2 class="section-title" style="text-align: center;">Who We Are</h2>
+    <p>
+      <strong>At Agroxphere</strong>, we are committed to delivering premium Indian agricultural products—rice, grains, pulses, spices, and more—to global markets, backed by trust, transparency, and cutting-edge technology.
+    </p>
+    <p>
+      We empower <strong>farmers, MSMEs, SMEs, agri-processors, and manufacturers</strong> by creating a streamlined and digitally optimized supply chain—from farm gate to global markets. Our export-ready ecosystem facilitates bulk, private-label, and processed agri-commodities with a focus on quality and timely execution.
+    </p>
+    <p>
+      By integrating compliance-first practices and embracing <strong>electronic trade documentation platforms</strong>, we ensure faster, more secure, and transparent trade. This includes digital Bills of Lading, customs documents, and logistics tracking—bringing agility and paperless efficiency to international agri-trade.
+    </p>
+    <p>
+      Our motto—<em>“Harvesting Quality, Exporting Trust”</em>—guides every shipment. Agroxphere is your trusted growth partner in scaling Indian agri-value chains to the global level—responsibly, efficiently, and digitally.
+    </p>
+  </div>
+
+  <div style="flex: 1;">
+    <img src="agri2.jpg" class="img-fluid rounded" alt="Agroxphere operations" />
+  </div>
+</div>
+
+    </div>
+  </section>
+  <section class="about-section">
+  
+  <div class="about-cards">
+
+    <!-- Vision -->
+    <div class="about-card">
+      <h3>Vision 🌱</h3>
+      <p>Revolutionize global agri-trade with transparency, tech, and trust—delivering quality from Indian farms to the world.</p>
+    </div>
+
+    <!-- Mission -->
+    <div class="about-card">
+      <h3>Mission 🚀</h3>
+      <p>Digitally optimize agri-supply chains, connect farmers to global buyers, and ensure traceable, high-quality exports.</p>
+    </div>
+
+    <!-- Values -->
+    <div class="about-card">
+      <h3>Values 💡</h3>
+      <p>Integrity, Innovation, Farmer-first, Sustainability, and Global Quality—building trust at every stage.</p>
+    </div>
+
+    <!-- Goals -->
+    <div class="about-card">
+      <h3>Goal 🎯</h3>
+      <p>Connect Indian farms to the world through trust, technology, and trade.</p>
+    </div>
+
+  </div>
+</section>
+
+
+  <section class="bg-light py-5 mt-5">
+    <div class="container text-center">
+      <h3 class="mb-4" data-aos="fade-up">Our Core Values</h3>
+      <div class="row">
+        <div class="col-md-4" data-aos="zoom-in">
+          <h5>🌿 Sustainability</h5>
+          <p>Commitment to eco-friendly farming and reduced wastage across our operations.</p>
+        </div>
+        <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+          <h5>📦 Quality Assurance</h5>
+          <p>End-to-end checks, certifications, and farm-level monitoring ensure consistency and trust.</p>
+        </div>
+        <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
+          <h5>🌍 Global Outlook</h5>
+          <p>Worldwide distribution enabled with deep tech integration and documentation automation.</p>
+        </div>
+         <div class="row mt-4">
+
+        <div class="col-md-4" data-aos="zoom-in">
+
+          <h5>🧾 Digital Compliance</h5>
+
+          <p>We adopt blockchain-secured digital trade documents like e-Bill of Lading, customs certificates, and insurance for secure, efficient logistics.</p>
+
+        </div>
+
+        <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+
+          <h5>🔗 MSME Empowerment</h5>
+
+          <p>We enable small and medium agri-enterprises to scale globally through fair pricing, tech tools, and export-ready onboarding support.</p>
+
+        </div>
+
+        <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
+
+          <h5>⚙️ Processing Integration</h5>
+
+          <p>We collaborate with certified processors and manufacturers for ready-to-export agri-goods and value-added food products.</p>
+
+        </div>
+
+      </div>
+
+    </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-4 text-center text-white" style="background-color: #052c1a">
+    <p>&copy; 2025 Agroxphere. All rights reserved.</p>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script> AOS.init(); </script>
+</body>
+</html>
